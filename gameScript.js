@@ -1,9 +1,41 @@
-let choices = ["rock", "paper", "scissors"]
+const choices = ["rock", "paper", "scissors"]
 let playerPick;
 let compPick;
 let humanScore = 0;
 let computerScore = 0;
 let goAgain = false;
+
+
+do{
+    for (let i = 0; i < 5; i++){
+        playerPick = getHumanChoice();
+        if (playerPick === null){
+            console.log("Player has canceled the game.");
+            goAgain = false;
+            break;
+        }
+        compPick = getComputerChoice();
+        let ruling = playRound(playerPick, compPick);
+        output(ruling);
+    }
+
+    if (playerPick === null){
+        console.log("The game has been canceled.")
+        break;
+    }
+    else if (humanScore > computerScore){
+        console.log("The human player WINS!!!");
+    }
+    else if (computerScore > humanScore) {
+        console.log("The computer WINS!!!");
+    }
+    else {
+        console.log("The game is a TIE.");
+    }
+    goAgain = playAgain();
+}
+while(goAgain);
+
 
 function getComputerChoice() {
     return Math.floor(Math.random() * 3);
@@ -50,8 +82,8 @@ function playRound(playerChoice, compChoice){
 }
 
 function output(ruling){
-    console.log("player picked " + playerPick);
-    console.log("computer picked " + compPick);
+    console.log(`Player picked ${choices[playerPick]}`);
+    console.log(`Computer picked ${choices[compPick]}`);
     console.log(ruling);
     console.log(`
         The score is now
@@ -70,33 +102,3 @@ function playAgain(){
         return false;
     }
 }
-
-do{
-    for (let i = 0; i < 5; i++){
-        playerPick = getHumanChoice();
-        if (playerPick === null){
-            console.log("Player has canceled the game.");
-            goAgain = false;
-            break;
-        }
-        compPick = getComputerChoice();
-        let ruling = playRound(playerPick, compPick);
-        output(ruling);
-    }
-
-    if (playerPick === null){
-        console.log("The game has been canceled.")
-        break;
-    }
-    else if (humanScore > computerScore){
-        console.log("The human player WINS!!!");
-    }
-    else if (computerScore > humanScore) {
-        console.log("The computer WINS!!!");
-    }
-    else {
-        console.log("The game is a TIE.");
-    }
-    goAgain = playAgain();
-}
-while(goAgain);
